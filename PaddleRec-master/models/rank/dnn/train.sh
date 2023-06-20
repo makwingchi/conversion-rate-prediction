@@ -1,0 +1,1 @@
+python3 -u ../../../tools/static_trainer.py -m config_queuedataset.yaml

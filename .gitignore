@@ -1,0 +1,57 @@
+# Folder
+/data/*
+
+# IDE Config
+.idea/
+.vscode/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Compiled Python files
+*.pyc
+
+# Application specific files
+venv
+node_modules
+.sass-cache
+
+# Temp File
+*.swp
+*.swa
+*.swo
+
+# Latex tmp files
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.gz
+*.toc
+
+# R tmp files
+*.RData
+.Rhistory
+
+# Poetry
+poetry.lock
+# pyproject.toml
+
+# Tensorboard meta files
+tensorboard_tmp/
+
+# redis files
+dump.rdb
