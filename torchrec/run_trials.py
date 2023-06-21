@@ -2,6 +2,7 @@ import os
 import datetime
 import joblib
 import logging
+import argparse
 
 from tqdm import tqdm
 
@@ -214,6 +215,10 @@ class DeepCrossing(torch.nn.Module):
         return concatted_list
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--device", help="specify device", default="cpu")
+
+
 if __name__ == "__main__":
     LOG_FILE_NAME = f'./training_log_{datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")}.log'
     logging.basicConfig(
@@ -223,7 +228,9 @@ if __name__ == "__main__":
         filename=LOG_FILE_NAME
     )
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    args = parser.parse_args()
+
+    device = args.device
     epoch = 1000
     learning_rate = 0.005
     batch_size = 16
