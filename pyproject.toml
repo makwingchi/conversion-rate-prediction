@@ -37,6 +37,7 @@ jupyterlab-system-monitor = "0.8.0"
 jupyterlab-git = "0.41.0"
 nodejs = "0.1.1"
 torch = "2.0.1"
+paddlepaddle = "2.3.2"
 
 
 [build-system]
