@@ -217,6 +217,7 @@ class DeepCrossing(torch.nn.Module):
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--device", help="specify device", default="cpu")
+parser.add_argument("--batch_size", help="specify batch_size", default="8")
 
 
 if __name__ == "__main__":
@@ -231,9 +232,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     device = args.device
+    batch_size = args.batch_size
     epoch = 1000
     learning_rate = 0.005
-    batch_size = 16
     weight_decay = 1e-6
     num_trials = 3
     delta = 0.001
