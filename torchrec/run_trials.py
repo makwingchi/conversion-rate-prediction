@@ -223,6 +223,14 @@ if __name__ == "__main__":
         filename=LOG_FILE_NAME
     )
 
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    epoch = 1000
+    learning_rate = 0.005
+    batch_size = 16
+    weight_decay = 1e-6
+    num_trials = 3
+    delta = 0.001
+
     clean_train_folder = "/mnt/ssd_1/datascience/comp_0713/data/data205411/2023-cvr-contest-data/clean_train"
 
     train_file_ls = os.listdir(clean_train_folder)
@@ -254,32 +262,19 @@ if __name__ == "__main__":
     feature_cols = list(train_df.columns[4:])
 
     for idx, row in train_df.head(1000).iterrows():
-        curr_features = []
-
-        curr_features.append([row["sample_id"]])
-        curr_features.append([row["t1"]])
-        curr_features.append([row["t2"]])
-        curr_features.append([row["t3"]])
+        curr_features = [row["sample_id"], row["t1"], row["t2"], row["t3"]]
 
         for _col in feature_cols:
             if len(row[_col]) == 0:
-                curr_features.append(torch.tensor([0], dtype=torch.long))
+                curr_features.append(torch.tensor([0], dtype=torch.long, device=device))
             else:
                 tmp = []
                 for i in row[_col]:
                     tmp.append(int(i))
 
-                curr_features.append(torch.tensor(tmp, dtype=torch.long))
+                curr_features.append(torch.tensor(tmp, dtype=torch.long, device=device))
 
         features.append(curr_features)
-
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    epoch = 1000
-    learning_rate = 0.005
-    batch_size = 16
-    weight_decay = 1e-6
-    num_trials = 3
-    delta = 0.001
 
     cvr_dataset = CVRDataset(features)
 
