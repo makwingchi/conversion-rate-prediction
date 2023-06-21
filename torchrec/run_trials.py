@@ -232,7 +232,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     device = args.device
-    batch_size = args.batch_size
+    batch_size = int(args.batch_size)
     epoch = 1000
     learning_rate = 0.005
     weight_decay = 1e-6
