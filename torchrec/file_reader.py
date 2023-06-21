@@ -1,9 +1,9 @@
 import os
 import datetime
 import joblib
+import logging
 
 import torch
-
 
 class Reader:
     def __init__(self):
@@ -64,20 +64,28 @@ class Reader:
 
 
 if __name__ == "__main__":
+    LOG_FILE_NAME = f'./log_{datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")}.log'
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(message)s",
+        datefmt='[%Y-%m-%d %H:%M:%S]',
+        filename=LOG_FILE_NAME
+    )
+
     reader = Reader()
 
-    train_data_path = "../data/data205411/2023-cvr-contest-data/train_data"
+    train_data_path = "/mnt/ssd_1/datascience/comp_0713/data/data205411/2023-cvr-contest-data/train_data"
     train_data = os.listdir(train_data_path)
 
     for _file in train_data:
+        logging.info(f"processing {_file}")
         features = []
         cnt = 0
 
         with open(os.path.join(train_data_path, _file)) as f:
             for line in f:
                 if cnt % 5000 == 0:
-                    print(cnt)
-                    print(datetime.datetime.now())
+                    logging.info(cnt)
 
                 curr_line = []
 
@@ -93,4 +101,6 @@ if __name__ == "__main__":
 
                 cnt += 1
 
-        joblib.dump(features, os.path.join(train_data_path, _file.replace("txt", "pkl")))
+        new_file_name = _file.replace("txt", "pkl")
+        joblib.dump(features, os.path.join(train_data_path, new_file_name))
+        logging.info(f"{new_file_name} saved")
