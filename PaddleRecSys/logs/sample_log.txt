@@ -1,0 +1,94 @@
+aistudio@jupyter-1017417-6423502:~/PaddleRec-master/models/rank/dnn$ sh train.sh
+[var label : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C1 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C2 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C3 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C4 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C5 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C6 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C7 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C8 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C9 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C10 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C11 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C12 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C13 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C14 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C15 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C16 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C17 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C18 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C19 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C20 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C21 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C22 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C23 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C24 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C25 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C26 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True), var C27 : LOD_TENSOR.shape(-1, 1).dtype(int64).stop_gradient(True)]
+['label', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10', 'C11', 'C12', 'C13', 'C14', 'C15', 'C16', 'C17', 'C18', 'C19', 'C20', 'C21', 'C22', 'C23', 'C24', 'C25', 'C26', 'C27']
+{'cost': var mean_0.tmp_0 : LOD_TENSOR.shape(1,).dtype(float32).stop_gradient(False), 'auc': var auc_0.tmp_0 : LOD_TENSOR.shape(1,).dtype(int64).stop_gradient(False)}
+2023-06-22 20:58:02,968 - INFO - cpu_num: None
+2023-06-22 20:58:02,969 - INFO - **************common.configs**********
+2023-06-22 20:58:02,969 - INFO - use_gpu: True, use_xpu: False, use_visual: False, train_batch_size: 512, train_data_dir: /home/aistudio/data/data205411, epochs: 1, print_interval: 50,    model_save_path: output_model_dnn_queue
+2023-06-22 20:58:02,969 - INFO - **************common.configs**********
+W0622 20:58:03.070662  1685 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0622 20:58:03.075028  1685 gpu_resources.cc:91] device: 0, cuDNN Version: 8.2.
+before get_reader
+2023-06-22 20:58:05,039 - INFO - File list: ['/home/aistudio/data/data205411/train_data.7z', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_30.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_17.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_08.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_14.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_28.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_15.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_09.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_18.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_07.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_21.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_29.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_05.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_10.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_19.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_06.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_26.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_16.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_23.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_22.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_27.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_11.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_01.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_24.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_25.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_13.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_20.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_02.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_12.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_04.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_03.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/README']
+train file_list: ['/home/aistudio/data/data205411/train_data.7z', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_30.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_17.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_08.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_14.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_28.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_15.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_09.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_18.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_07.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_21.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_29.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_05.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_10.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_19.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_06.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_26.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_16.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_23.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_22.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_27.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_11.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_01.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_24.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_25.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_13.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_20.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_02.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_12.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_04.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_03.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/README']
+parse ins id: None
+utils_path: /home/aistudio/PaddleRec-master/tools/utils/static_ps
+abs_train_reader is: /home/aistudio/PaddleRec-master/models/rank/dnn/criteo_reader
+pipe_command is: python3.7 queuedataset_reader.py config_queuedataset.yaml /home/aistudio/PaddleRec-master/tools/utils/static_ps
+dataset init thread_num: 1
+2023-06-22 20:58:05,039 - INFO - Get Train Dataset
+dataset get_reader thread_num: 1
+after get_reader
+<paddle.distributed.fleet.dataset.dataset.QueueDataset object at 0x7f090bc7dd90>
+['/home/aistudio/data/data205411/train_data.7z', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_30.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_17.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_08.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_14.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_28.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_15.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_09.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_18.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_07.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_21.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_29.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_05.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_10.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_19.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_06.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_26.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_16.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_23.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_22.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_27.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_11.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_01.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_24.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_25.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_13.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_20.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_02.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_12.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_04.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/train_data/file_03.txt', '/home/aistudio/data/data205411/2023-cvr-contest-data/README']
+epochs=1
+2023-06-22 20:58:05,041 - INFO - AUC Reset To Zero: _generated_var_0
+2023-06-22 20:58:05,041 - INFO - AUC Reset To Zero: _generated_var_1
+2023-06-22 20:58:05,041 - INFO - AUC Reset To Zero: _generated_var_2
+2023-06-22 20:58:05,041 - INFO - AUC Reset To Zero: _generated_var_3
+before fetch_batch_var
+print_interval=50
+device worker program id: 139678686414160
+I0622 20:58:05.049183  1685 multi_trainer.cc:164] MultiTrainer::InitOtherEnv Communicator is null!
+2023-06-22 20:58:06,607 - INFO - pipe init success
+Traceback (most recent call last):
+  File "queuedataset_reader.py", line 94, in <module>
+    r.run_from_stdin()
+  File "/opt/conda/envs/python35-paddle120-env/lib/python3.7/site-packages/paddle/distributed/fleet/data_generator/data_generator.py", line 122, in run_from_stdin
+    for line in sys.stdin:
+  File "/opt/conda/envs/python35-paddle120-env/lib/python3.7/codecs.py", line 322, in decode
+    (result, consumed) = self._buffer_decode(data, self.errors, final)
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xbc in position 2: invalid start byte
+2023-06-22 20:58:08,277 - INFO - pipe init success
+time: [2023-06-22 20:58:14], batch: [50], Epoch 0 Var cost[1]:[0.204329], Epoch 0 Var auc[1]:[0.546369]
+time: [2023-06-22 20:58:20], batch: [100], Epoch 0 Var cost[1]:[0.215187], Epoch 0 Var auc[1]:[0.569688]
+time: [2023-06-22 20:58:26], batch: [150], Epoch 0 Var cost[1]:[0.268764], Epoch 0 Var auc[1]:[0.589414]
+time: [2023-06-22 20:58:32], batch: [200], Epoch 0 Var cost[1]:[0.236134], Epoch 0 Var auc[1]:[0.604907]
+time: [2023-06-22 20:58:38], batch: [250], Epoch 0 Var cost[1]:[0.1747], Epoch 0 Var auc[1]:[0.61111]
+time: [2023-06-22 20:58:44], batch: [300], Epoch 0 Var cost[1]:[0.217628], Epoch 0 Var auc[1]:[0.619205]
+time: [2023-06-22 20:58:50], batch: [350], Epoch 0 Var cost[1]:[0.152286], Epoch 0 Var auc[1]:[0.625856]
+2023-06-22 20:58:52,517 - INFO - pipe init success
+time: [2023-06-22 20:58:56], batch: [400], Epoch 0 Var cost[1]:[0.200794], Epoch 0 Var auc[1]:[0.629219]
+time: [2023-06-22 20:59:02], batch: [450], Epoch 0 Var cost[1]:[0.228678], Epoch 0 Var auc[1]:[0.63276]
+time: [2023-06-22 20:59:08], batch: [500], Epoch 0 Var cost[1]:[0.180939], Epoch 0 Var auc[1]:[0.634749]
+time: [2023-06-22 20:59:15], batch: [550], Epoch 0 Var cost[1]:[0.282492], Epoch 0 Var auc[1]:[0.63766]
+time: [2023-06-22 20:59:21], batch: [600], Epoch 0 Var cost[1]:[0.24464], Epoch 0 Var auc[1]:[0.639457]
+time: [2023-06-22 20:59:27], batch: [650], Epoch 0 Var cost[1]:[0.17663], Epoch 0 Var auc[1]:[0.64028]
+time: [2023-06-22 20:59:33], batch: [700], Epoch 0 Var cost[1]:[0.220297], Epoch 0 Var auc[1]:[0.642398]
+time: [2023-06-22 20:59:39], batch: [750], Epoch 0 Var cost[1]:[0.210334], Epoch 0 Var auc[1]:[0.644408]
+time: [2023-06-22 20:59:45], batch: [800], Epoch 0 Var cost[1]:[0.265786], Epoch 0 Var auc[1]:[0.646623]
+2023-06-22 20:59:46,852 - INFO - pipe init success
+time: [2023-06-22 20:59:51], batch: [850], Epoch 0 Var cost[1]:[0.223148], Epoch 0 Var auc[1]:[0.649472]
+time: [2023-06-22 20:59:57], batch: [900], Epoch 0 Var cost[1]:[0.293875], Epoch 0 Var auc[1]:[0.651025]
+time: [2023-06-22 21:00:03], batch: [950], Epoch 0 Var cost[1]:[0.253518], Epoch 0 Var auc[1]:[0.652212]
+time: [2023-06-22 21:00:09], batch: [1000], Epoch 0 Var cost[1]:[0.326479], Epoch 0 Var auc[1]:[0.653372]
+time: [2023-06-22 21:00:15], batch: [1050], Epoch 0 Var cost[1]:[0.268883], Epoch 0 Var auc[1]:[0.655306]
+time: [2023-06-22 21:00:21], batch: [1100], Epoch 0 Var cost[1]:[0.276765], Epoch 0 Var auc[1]:[0.657223]
+time: [2023-06-22 21:00:28], batch: [1150], Epoch 0 Var cost[1]:[0.273367], Epoch 0 Var auc[1]:[0.658802]
+time: [2023-06-22 21:00:34], batch: [1200], Epoch 0 Var cost[1]:[0.1676], Epoch 0 Var auc[1]:[0.660249]
+time: [2023-06-22 21:00:40], batch: [1250], Epoch 0 Var cost[1]:[0.247944], Epoch 0 Var auc[1]:[0.661848]
+2023-06-22 21:00:40,988 - INFO - pipe init success
+time: [2023-06-22 21:00:46], batch: [1300], Epoch 0 Var cost[1]:[0.258098], Epoch 0 Var auc[1]:[0.66322]
+time: [2023-06-22 21:00:52], batch: [1350], Epoch 0 Var cost[1]:[0.267712], Epoch 0 Var auc[1]:[0.664355]
+time: [2023-06-22 21:00:58], batch: [1400], Epoch 0 Var cost[1]:[0.215607], Epoch 0 Var auc[1]:[0.665072]
+time: [2023-06-22 21:01:04], batch: [1450], Epoch 0 Var cost[1]:[0.20557], Epoch 0 Var auc[1]:[0.665892]
+time: [2023-06-22 21:01:10], batch: [1500], Epoch 0 Var cost[1]:[0.201145], Epoch 0 Var auc[1]:[0.666726]
+time: [2023-06-22 21:01:16], batch: [1550], Epoch 0 Var cost[1]:[0.21421], Epoch 0 Var auc[1]:[0.66774]
+time: [2023-06-22 21:01:22], batch: [1600], Epoch 0 Var cost[1]:[0.270147], Epoch 0 Var auc[1]:[0.668658]
+time: [2023-06-22 21:01:28], batch: [1650], Epoch 0 Var cost[1]:[0.178442], Epoch 0 Var auc[1]:[0.669188]
+2023-06-22 21:01:31,129 - INFO - pipe init success
+time: [2023-06-22 21:01:34], batch: [1700], Epoch 0 Var cost[1]:[0.203014], Epoch 0 Var auc[1]:[0.669705]
+time: [2023-06-22 21:01:40], batch: [1750], Epoch 0 Var cost[1]:[0.223407], Epoch 0 Var auc[1]:[0.670379]
+time: [2023-06-22 21:01:46], batch: [1800], Epoch 0 Var cost[1]:[0.270564], Epoch 0 Var auc[1]:[0.671278]
+time: [2023-06-22 21:01:52], batch: [1850], Epoch 0 Var cost[1]:[0.194081], Epoch 0 Var auc[1]:[0.671888]
+time: [2023-06-22 21:01:58], batch: [1900], Epoch 0 Var cost[1]:[0.247561], Epoch 0 Var auc[1]:[0.672552]
+time: [2023-06-22 21:02:04], batch: [1950], Epoch 0 Var cost[1]:[0.241682], Epoch 0 Var auc[1]:[0.672985]
+time: [2023-06-22 21:02:10], batch: [2000], Epoch 0 Var cost[1]:[0.229094], Epoch 0 Var auc[1]:[0.67343]
+time: [2023-06-22 21:02:15], batch: [2050], Epoch 0 Var cost[1]:[0.205794], Epoch 0 Var auc[1]:[0.67428]
+time: [2023-06-22 21:02:21], batch: [2100], Epoch 0 Var cost[1]:[0.225602], Epoch 0 Var auc[1]:[0.675044]
+2023-06-22 21:02:25,933 - INFO - pipe init success
+time: [2023-06-22 21:02:27], batch: [2150], Epoch 0 Var cost[1]:[0.197753], Epoch 0 Var auc[1]:[0.675533]
+time: [2023-06-22 21:02:33], batch: [2200], Epoch 0 Var cost[1]:[0.207349], Epoch 0 Var auc[1]:[0.676087]
+time: [2023-06-22 21:02:39], batch: [2250], Epoch 0 Var cost[1]:[0.161679], Epoch 0 Var auc[1]:[0.676678]
+time: [2023-06-22 21:02:45], batch: [2300], Epoch 0 Var cost[1]:[0.187782], Epoch 0 Var auc[1]:[0.676971]
+time: [2023-06-22 21:02:51], batch: [2350], Epoch 0 Var cost[1]:[0.152485], Epoch 0 Var auc[1]:[0.677633]
