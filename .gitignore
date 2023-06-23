@@ -55,3 +55,8 @@ tensorboard_tmp/
 
 # redis files
 dump.rdb
+
+# paddle static model outputs
+*.pdmodel
+*.pdopt
+*.pdparams
