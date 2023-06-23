@@ -20,31 +20,31 @@ class StaticSingleTaskModel:
         self._get_model()
 
     def _init_hyper_parameters(self):
-        self.sparse_inputs_slots = self.config["models"]["baseline"]["sparse_inputs_slots"]
-        self.sparse_feature_number = self.config["models"]["baseline"]["sparse_feature_number"]
-        self.sparse_feature_dim = self.config["models"]["baseline"]["sparse_feature_dim"]
+        self.model_type = self.config["runner"]["model_type"].lower()
+
+        self.sparse_inputs_slots = self.config["models"][self.model_type]["sparse_inputs_slots"]
+        self.sparse_feature_number = self.config["models"][self.model_type]["sparse_feature_number"]
+        self.sparse_feature_dim = self.config["models"][self.model_type]["sparse_feature_dim"]
         self.learning_rate = self.config["optimizer"]["learning_rate"]
 
     def _get_model(self):
-        model = self.config["runner"]["model_type"]
-
-        if model.lower() == "baseline":
+        if self.model_type == "baseline":
             self.model = DNN
-        elif model.lower() == "wideanddeep":
+        elif self.model_type == "wideanddeep":
             self.model = WideAndDeep
-        elif model.lower() == "deepandcross":
+        elif self.model_type == "deepandcross":
             self.model = DeepAndCross
-        elif model.lower() == "deepcrossing":
+        elif self.model_type == "deepcrossing":
             self.model = DeepCrossing
-        elif model.lower() == "deepfm":
+        elif self.model_type == "deepfm":
             self.model = DeepFM
-        elif model.lower() == "pnn":
+        elif self.model_type == "pnn":
             self.model = PNN
-        elif model.lower() == "fnn":
+        elif self.model_type == "fnn":
             self.model = FNN
-        elif model.lower() == "nfm":
+        elif self.model_type == "nfm":
             self.model = NFM
-        elif model.lower() == "fibinet":
+        elif self.model_type == "fibinet":
             self.model = FiBiNet
 
     def create_feeds(self):

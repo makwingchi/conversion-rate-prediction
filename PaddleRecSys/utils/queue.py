@@ -16,14 +16,14 @@ class Queue:
 
         print("pipe_command is: {}".format(self.pipe_command))
 
-        self.batch_size = self.config["runner"]["train_batch_size"]
+        self.batch_size = self.config["runner"]["batch_size"]
         assert self.batch_size >= 1
 
         self.thread_num = self.config["runner"]["thread_num"]
         print("dataset init thread_num:", self.thread_num)
         assert self.thread_num >= 1
 
-        self.infer_batch_size = self.config["runner"]["infer_batch_size"]
+        self.infer_batch_size = self.config["runner"]["batch_size"]
         self.infer_thread_num = self.thread_num
 
     def get_reader(self):
