@@ -28,24 +28,19 @@ class StaticSingleTaskModel:
         self.learning_rate = self.config["optimizer"]["learning_rate"]
 
     def _get_model(self):
-        if self.model_type == "baseline":
-            self.model = DNN
-        elif self.model_type == "wideanddeep":
-            self.model = WideAndDeep
-        elif self.model_type == "deepandcross":
-            self.model = DeepAndCross
-        elif self.model_type == "deepcrossing":
-            self.model = DeepCrossing
-        elif self.model_type == "deepfm":
-            self.model = DeepFM
-        elif self.model_type == "pnn":
-            self.model = PNN
-        elif self.model_type == "fnn":
-            self.model = FNN
-        elif self.model_type == "nfm":
-            self.model = NFM
-        elif self.model_type == "fibinet":
-            self.model = FiBiNet
+        _map = {
+            "baseline": DNN,
+            "wideanddeep": WideAndDeep,
+            "deepandcross": DeepAndCross,
+            "deepcrossing": DeepCrossing,
+            "deepfm": DeepFM,
+            "pnn": PNN,
+            "fnn": FNN,
+            "nfm": NFM,
+            "fibinet": FiBiNet
+        }
+
+        self.model = _map[self.model_type]
 
     def create_feeds(self):
         sparse_input_ids = [
