@@ -6,6 +6,7 @@ import time
 import paddle
 
 from models.single_task_model import StaticSingleTaskModel
+from models.multi_task_model import StaticMultiTaskModel
 from utils.utils_single import get_infer_reader, reset_auc
 from utils.save_and_load import load_static_model
 from utils.train_and_test import dataset_test
@@ -27,12 +28,15 @@ if __name__ == "__main__":
     start_epoch = config["runner"]["infer_start_epoch"]
     end_epoch = config["runner"]["infer_end_epoch"]
     model_load_path = config["runner"]["model_save_path"]
+    task_type = config["runner"]["task_type"]
 
     paddle.seed(seed)
     paddle.enable_static()
 
-    # train
-    static_model_class = StaticSingleTaskModel(config)
+    if task_type == "single":
+        static_model_class = StaticSingleTaskModel(config)
+    else:
+        static_model_class = StaticMultiTaskModel(config)
     input_data = static_model_class.create_feeds()
     input_data_names = [data.name for data in input_data]
 

@@ -12,7 +12,8 @@ def get_configurations():
             "infer_start_epoch": 0,
             "infer_end_epoch": 1,
             "thread_num": 1,
-            "model_type": "pnn"
+            "model_type": "pnn",
+            "task_type": "single"
         },
         "optimizer": {
             "learning_rate": 0.001
@@ -55,7 +56,15 @@ def get_configurations():
                 "sparse_inputs_slots": 28,
                 "fc_sizes": [512, 256, 128, 32],
                 "num_matrices": 8
+            },
+            "mmoe": {
+                "sparse_feature_dim": 9,
+                "sparse_feature_number": 88000000,
+                "sparse_inputs_slots": 28,
+                "expert_num": 3,
+                "expert_size": 256,
+                "tower_size": 128,
+                "gate_num": 3
             }
         }
-
     }
