@@ -29,7 +29,6 @@ class DeepAndCross(paddle.nn.Layer):
                 )
             )
 
-            self.add_sublayer(f"deep_model_{i}", deep_model)
             self.deep_models.append(deep_model)
 
         self.cross_models = []
@@ -45,7 +44,6 @@ class DeepAndCross(paddle.nn.Layer):
                 )
             )
 
-            self.add_sublayer(f"cross_model_{i}", cross_model)
             self.cross_models.append(cross_model)
 
         self.relu = paddle.nn.ReLU()
@@ -58,7 +56,6 @@ class DeepAndCross(paddle.nn.Layer):
                 )
             )
         )
-        self.add_sublayer("final_linear", self.final_linear)
 
     def forward(self, sparse_embs):
         x = paddle.concat(sparse_embs, axis=1)
@@ -75,9 +72,11 @@ class DeepAndCross(paddle.nn.Layer):
 
         # deep
         deep_out = x
-        for deep_model in self.deep_models:
+        for idx, deep_model in enumerate(self.deep_models):
             deep_out = deep_model(deep_out)
-            deep_out = self.relu(deep_out)
+
+            if idx != len(self.deep_models) - 1:
+                deep_out = self.relu(deep_out)
 
         concat_out = paddle.concat([cross_out, deep_out], axis=-1)
 

@@ -15,7 +15,6 @@ class PNN(paddle.nn.Layer):
         self.num_matrices = self.config["models"]["pnn"]["num_matrices"]
 
         sizes = [self.num_matrices] + self.layer_sizes + [1]
-        acts = ["relu" for _ in range(len(self.layer_sizes))] + [None]
 
         self.wz = []
         self.wp = []
@@ -51,9 +50,7 @@ class PNN(paddle.nn.Layer):
 
             self.linear_layers.append(linear)
 
-            if acts[i] == "relu":
-                act = paddle.nn.ReLU()
-                self.linear_layers.append(act)
+        self.relu = paddle.nn.ReLU()
 
     def forward(self, sparse_embs):
         x = paddle.concat(sparse_embs, axis=1)
@@ -88,7 +85,10 @@ class PNN(paddle.nn.Layer):
 
         out = lz + lp + self.bias
 
-        for layer in self.linear_layers:
+        for idx, layer in enumerate(self.linear_layers):
             out = layer(out)
+
+            if idx != len(self.linear_layers) - 1:
+                out = self.relu(out)
 
         return F.sigmoid(out)

@@ -52,7 +52,6 @@ class DeepCrossing(paddle.nn.Layer):
                 hidden_dim=self.layer_sizes[i]
             )
 
-            self.add_sublayer('residual_block_%d' % i, residual_block)
             self.residual_blocks.append(residual_block)
 
         self.final_linear = paddle.nn.Linear(
@@ -64,13 +63,12 @@ class DeepCrossing(paddle.nn.Layer):
                 )
             )
         )
-        self.add_sublayer('final_linear_layer', self.final_linear)
 
         self.relu = paddle.nn.ReLU()
 
     def forward(self, sparse_embs):
         x = paddle.concat(sparse_embs, axis=1)
-        x = self.relu(x)
+        # x = self.relu(x)
 
         for block in self.residual_blocks:
             x = block(x)

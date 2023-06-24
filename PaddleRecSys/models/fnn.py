@@ -14,7 +14,6 @@ class FNN(paddle.nn.Layer):
         self.layer_sizes = self.config["models"]["fnn"]["fc_sizes"]
 
         sizes = [self.sparse_feature_dim * self.num_field] + self.layer_sizes + [1]
-        acts = ["tanh" for _ in range(len(self.layer_sizes))] + [None]
 
         self.nets = []
 
@@ -29,18 +28,17 @@ class FNN(paddle.nn.Layer):
                 )
             )
 
-            self.add_sublayer(f"linear_layer_{i}", linear)
             self.nets.append(linear)
 
-            if acts[i] == "tanh":
-                act = paddle.nn.Tanh()
-                self.add_sublayer(f"tanh_{i}", act)
-                self.nets.append(act)
+        self.relu = paddle.nn.ReLU()
 
     def forward(self, sparse_embs):
         x = paddle.concat(sparse_embs, axis=1)
 
-        for net in self.nets:
+        for idx, net in enumerate(self.nets):
             x = net(x)
+
+            if idx != len(self.nets) - 1:
+                x = self.relu(x)
 
         return F.sigmoid(x)
