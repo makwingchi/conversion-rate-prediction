@@ -57,6 +57,15 @@ def get_configurations():
                 "fc_sizes": [512, 256, 128, 32],
                 "num_matrices": 8
             },
+            "fibinet": {
+                "sparse_feature_dim": 9,
+                "sparse_feature_number": 88000000,
+                "sparse_inputs_slots": 28,
+                "reduction_ratio": 5,
+                "bilinear_type": "field_all",
+                "hidden_units": [512, 256, 128, 32],
+                "hidden_activations": "ReLU",
+            },
             "mmoe": {
                 "sparse_feature_dim": 9,
                 "sparse_feature_number": 88000000,
