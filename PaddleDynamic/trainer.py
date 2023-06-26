@@ -7,6 +7,7 @@ from config import get_configurations
 from utils.utils_single import create_data_loader
 from utils.save_and_load import save_model
 from models.single_task_model import DynamicSingleTaskModel
+from models.multi_task_model import DynamicMultiTaskModel
 
 
 logging.basicConfig(
@@ -25,14 +26,19 @@ if __name__ == "__main__":
     num_epochs = config["runner"]["train_epochs"]
     print_interval = config["runner"]["print_interval"]
     model_save_path = config["runner"]["model_save_path"]
+    task_type = config["runner"]["task_type"]
 
     paddle.seed(seed)
 
-    model_class = DynamicSingleTaskModel(config)
+    if task_type == "single":
+        model_class = DynamicSingleTaskModel(config)
+    else:
+        model_class = DynamicMultiTaskModel(config)
+
     model = model_class.create_model()
     optimizer = model_class.create_optimizer(model)
 
-    train_dataloader = create_data_loader(config, device)
+    train_dataloader = create_data_loader(config, device, task_type)
 
     for epoch_id in range(num_epochs):
         model.train()

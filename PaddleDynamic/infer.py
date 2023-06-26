@@ -10,6 +10,7 @@ from utils.utils_single import create_data_loader
 from utils.save_and_load import load_model
 from config import get_configurations
 from models.single_task_model import DynamicSingleTaskModel
+from models.multi_task_model import DynamicMultiTaskModel
 
 logging.basicConfig(
     level=logging.INFO,
@@ -29,13 +30,18 @@ if __name__ == "__main__":
     end_epoch = config["runner"]["infer_end_epoch"]
     model_load_path = config["runner"]["model_save_path"]
     infer_batch_size = config["runner"]["batch_size"]
+    task_type = config["runner"]["task_type"]
 
     paddle.seed(seed)
 
-    model_class = DynamicSingleTaskModel(config)
+    if task_type == "single":
+        model_class = DynamicSingleTaskModel(config)
+    else:
+        model_class = DynamicMultiTaskModel(config)
+
     model = model_class.create_model()
 
-    test_dataloader = create_data_loader(config, device, mode="test")
+    test_dataloader = create_data_loader(config, device, task_type, mode="test")
 
     epoch_begin = time.time()
     interval_begin = time.time()
@@ -53,15 +59,24 @@ if __name__ == "__main__":
         infer_run_cost = 0.0
         reader_start = time.time()
 
-        pred_ls = []
+        if task_type == "single":
+            pred_ls = []
+        else:
+            pred_ls = {"t1": [], "t2": [], "t3": []}
 
         for batch_id, batch in enumerate(test_dataloader()):
             infer_reader_cost += time.time() - reader_start
             infer_start = time.time()
             batch_size = len(batch[0])
 
-            metric_list, tensor_print_dict, curr_pred = model_class.infer_forward(model, metric_list, batch)
-            pred_ls.extend(curr_pred)
+            if task_type == "single":
+                metric_list, tensor_print_dict, curr_pred = model_class.infer_forward(model, metric_list, batch)
+                pred_ls.extend(curr_pred)
+            else:
+                metric_list, tensor_print_dict, pred1, pred2, pred3 = model_class.infer_forward(model, metric_list, batch)
+                pred_ls["t1"].extend(pred1)
+                pred_ls["t2"].extend(pred2)
+                pred_ls["t3"].extend(pred3)
 
             infer_run_cost += time.time() - infer_start
 
@@ -107,4 +122,7 @@ if __name__ == "__main__":
         )
         epoch_begin = time.time()
 
-        pd.DataFrame({"pred": pred_ls}).to_csv("./infer.csv", index=False)
+        if task_type == "single":
+            pd.DataFrame({"pred": pred_ls}).to_csv("./infer.csv", index=False)
+        else:
+            pd.DataFrame(pred_ls).to_csv("./infer.csv", index=False)

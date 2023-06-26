@@ -1,2 +1,2 @@
-rm -rf ./output_dnn_queue
+rm -rf ./output_dnn
 rm -rf infer.csv

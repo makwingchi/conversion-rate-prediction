@@ -3,7 +3,7 @@ def get_configurations():
         "runner": {
             "seed": 666,
             "device": "gpu",
-            "model_save_path": "./output_dnn_queue",
+            "model_save_path": "./output_dnn",
             "train_data_path": "../data/data205411/2023-cvr-contest-data/train_data",
             "test_data_path": "../data/data204194/test_data",
             "batch_size": 512,
@@ -25,6 +25,38 @@ def get_configurations():
                 "sparse_feature_number": 88000000,
                 "num_fields": 26,
                 "fc_sizes": [512, 256, 128, 32]
+            },
+            "deepcrossing": {
+                "sparse_feature_dim": 9,
+                "sparse_feature_number": 88000000,
+                "num_fields": 26,
+                "fc_sizes": [512, 256, 128, 32]
+            },
+            "wideanddeep": {
+                "sparse_feature_dim": 9,
+                "sparse_feature_number": 88000000,
+                "num_fields": 26,
+                "fc_sizes": [512, 256, 128, 32]
+            },
+            "deepandcross": {
+                "sparse_feature_dim": 9,
+                "sparse_feature_number": 88000000,
+                "num_fields": 26,
+                "fc_sizes": [512, 256, 128, 32],
+                "num_crosses": 3
+            },
+            "fnn": {
+                "sparse_feature_dim": 9,
+                "sparse_feature_number": 88000000,
+                "num_fields": 26,
+                "fc_sizes": [512, 256, 128, 32]
+            },
+            "pnn": {
+                "sparse_feature_dim": 9,
+                "sparse_feature_number": 88000000,
+                "num_fields": 26,
+                "fc_sizes": [512, 256, 128, 32],
+                "num_matrices": 8
             }
         }
     }
