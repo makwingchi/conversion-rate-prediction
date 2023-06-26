@@ -1,23 +1,11 @@
 import paddle
 
-from .dnn import DNN
+from .rec_model import RecModel
 
 
-class DynamicSingleTaskModel:
+class DynamicSingleTaskModel(RecModel):
     def __init__(self, config):
-        self.config = config
-        self.model_type = config["runner"]["model_type"]
-
-    def __get_model(self):
-        _map = {
-            "baseline": DNN
-        }
-
-        return _map[self.model_type]
-
-    def create_model(self):
-        model = self.__get_model()
-        return model(self.config)
+        super().__init__(config)
 
     def create_feeds(self, batch_data):
         label = batch_data[0]
@@ -25,30 +13,6 @@ class DynamicSingleTaskModel:
         mask = batch_data[-1]
 
         return label, features, mask
-
-    def create_loss(self, pred, label):
-        cost = paddle.nn.functional.log_loss(
-            input=pred,
-            label=paddle.cast(label, dtype="float32")
-        )
-
-        return paddle.mean(x=cost)
-
-    def create_optimizer(self, model):
-        learning_rate = self.config["optimizer"]["learning_rate"]
-        optimizer = paddle.optimizer.Adam(
-            learning_rate=learning_rate,
-            parameters=model.parameters()
-        )
-
-        return optimizer
-
-    def create_metrics(self):
-        metric_list_name = ["auc"]
-        auc_metric = paddle.metric.Auc("ROC")
-        metric_list = [auc_metric]
-
-        return metric_list, metric_list_name
 
     def train_forward(self, model, metric_list, batch_data):
         label, features, mask = self.create_feeds(batch_data)
