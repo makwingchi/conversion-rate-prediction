@@ -11,9 +11,27 @@ class SqueezeExcitation(nn.Layer):
 
         reduced_size = max(1, int(num_fields / reduction_ratio))
         excitation = [
-            nn.Linear(num_fields, reduced_size),
+            nn.Linear(
+                num_fields,
+                reduced_size,
+                weight_attr=paddle.framework.ParamAttr(
+                    initializer=paddle.nn.initializer.XavierUniform()
+                ),
+                bias_attr=paddle.ParamAttr(
+                    initializer=paddle.nn.initializer.Constant(value=0.0)
+                )
+            ),
             nn.ReLU(),
-            nn.Linear(reduced_size, num_fields)
+            nn.Linear(
+                reduced_size,
+                num_fields,
+                weight_attr=paddle.framework.ParamAttr(
+                    initializer=paddle.nn.initializer.XavierUniform()
+                ),
+                bias_attr=paddle.ParamAttr(
+                    initializer=paddle.nn.initializer.Constant(value=0.0)
+                )
+            )
         ]
 
         if excitation_activation.lower() == "relu":
@@ -108,7 +126,18 @@ class FiBiNet(nn.Layer):
         hidden_units = [input_dim] + hidden_units
 
         for idx in range(len(hidden_units) - 1):
-            dnn_net.append(nn.Linear(hidden_units[idx], hidden_units[idx + 1], bias_attr=None))
+            dnn_net.append(
+                nn.Linear(
+                    hidden_units[idx],
+                    hidden_units[idx + 1],
+                    weight_attr=paddle.framework.ParamAttr(
+                        initializer=paddle.nn.initializer.XavierUniform()
+                    ),
+                    bias_attr=paddle.ParamAttr(
+                        initializer=paddle.nn.initializer.Constant(value=0.0)
+                    )
+                )
+            )
 
             if hidden_activations is not None:
                 if hidden_activations == 'ReLU':
@@ -116,7 +145,19 @@ class FiBiNet(nn.Layer):
                 else:
                     raise NotImplementedError
 
-        dnn_net.append(nn.Linear(hidden_units[-1], 1, bias_attr=None))
+        dnn_net.append(
+            nn.Linear(
+                hidden_units[-1],
+                1,
+                weight_attr=paddle.framework.ParamAttr(
+                    initializer=paddle.nn.initializer.XavierUniform()
+                ),
+                bias_attr=paddle.ParamAttr(
+                    initializer=paddle.nn.initializer.Constant(value=0.0)
+                )
+            )
+        )
+
         self.dnn = nn.Sequential(*dnn_net)
 
     def forward(self, sparse_embs):
