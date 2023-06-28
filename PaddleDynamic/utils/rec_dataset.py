@@ -1,3 +1,4 @@
+import random
 import logging
 
 import numpy as np
@@ -14,9 +15,17 @@ class RecDataset(IterableDataset):
         super().__init__()
         self.file_list = file_list
         self.max_len = config["runner"]["max_len"]
+        self.seed = config["runner"]["seed"]
+
+        _map = {"1": 12/47, "2": 4/9, "3": 1/6}
+        conv_type = config["runner"]["conv_type"]
+
+        self.coef = _map[conv_type]
         self.init()
 
     def init(self):
+        random.seed(self.seed)
+
         padding = 0
         sparse_slots = "log_key click 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26"
         self.sparse_slots = sparse_slots.strip().split(" ")
@@ -48,6 +57,10 @@ class RecDataset(IterableDataset):
                         conv = 1
                     else:
                         conv = 0
+
+                    rand = random.random()
+                    if conv == 0 and rand > self.coef:
+                        continue
 
                     output = [(i, []) for i in self.slots]
                     feasigns = items[4].split(" ")

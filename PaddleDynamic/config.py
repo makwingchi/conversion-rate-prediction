@@ -14,7 +14,8 @@ def get_configurations():
             "print_interval": 50,
             "max_len": 21,
             "model_type": "baseline",
-            "task_type": "single"
+            "task_type": "single",
+            "conv_type": "1"
         },
         "optimizer": {
             "learning_rate": 0.001
