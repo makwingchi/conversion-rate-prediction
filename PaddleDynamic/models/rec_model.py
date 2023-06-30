@@ -6,7 +6,9 @@ from .wideanddeep import WideAndDeep
 from .deepandcross import DeepAndCross
 from .fnn import FNN
 from .pnn import PNN
+from .dlrm import DLRM
 from .mmoe import MMoE
+from .naive_attention import NativeAttention
 
 
 class RecModel:
@@ -22,7 +24,9 @@ class RecModel:
             "deepcrossing": DeepCrossing,
             "pnn": PNN,
             "fnn": FNN,
-            "mmoe": MMoE
+            "mmoe": MMoE,
+            "dlrm": DLRM,
+            "naive_attention": NativeAttention
         }
 
         return _map[self.model_type]
@@ -54,4 +58,3 @@ class RecModel:
         metric_list = [auc_metric]
 
         return metric_list, metric_list_name
-
