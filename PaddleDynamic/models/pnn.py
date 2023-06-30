@@ -7,10 +7,10 @@ class PNN(paddle.nn.Layer):
         super().__init__()
         self.config = config
 
-        self.sparse_feature_number = self.config["models"]["pnn"]["sparse_feature_number"]
-        self.sparse_feature_dim = self.config["models"]["pnn"]["sparse_feature_dim"]
-        self.num_field = self.config["models"]["pnn"]["num_fields"]
-        self.layer_sizes = self.config["models"]["pnn"]["fc_sizes"]
+        self.sparse_feature_number = self.config["models"]["common"]["sparse_feature_number"]
+        self.sparse_feature_dim = self.config["models"]["common"]["sparse_feature_dim"]
+        self.num_field = self.config["models"]["common"]["num_fields"]
+        self.layer_sizes = self.config["models"]["common"]["fc_sizes"]
         self.num_matrices = self.config["models"]["pnn"]["num_matrices"]
 
         self.embedding = paddle.nn.Embedding(

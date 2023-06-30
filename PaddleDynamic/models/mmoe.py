@@ -7,9 +7,9 @@ class MMoE(paddle.nn.Layer):
         super().__init__()
         self.config = config
 
-        self.sparse_feature_number = self.config["models"]["mmoe"]["sparse_feature_number"]
-        self.sparse_feature_dim = self.config["models"]["mmoe"]["sparse_feature_dim"]
-        self.num_field = self.config["models"]["mmoe"]["num_fields"]
+        self.sparse_feature_number = self.config["models"]["common"]["sparse_feature_number"]
+        self.sparse_feature_dim = self.config["models"]["common"]["sparse_feature_dim"]
+        self.num_field = self.config["models"]["common"]["num_fields"]
         self.expert_num = self.config["models"]["mmoe"]["expert_num"]  # number of expert networks
         self.expert_size = self.config["models"]["mmoe"]["expert_size"]  # expert network output size
         self.tower_size = self.config["models"]["mmoe"]["tower_size"]  # tower network output size

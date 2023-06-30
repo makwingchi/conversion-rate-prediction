@@ -7,10 +7,10 @@ class WideAndDeep(paddle.nn.Layer):
         super().__init__()
         self.config = config
 
-        self.sparse_feature_number = self.config["models"]["wideanddeep"]["sparse_feature_number"]
-        self.sparse_feature_dim = self.config["models"]["wideanddeep"]["sparse_feature_dim"]
-        self.num_field = self.config["models"]["wideanddeep"]["num_fields"]
-        self.layer_sizes = self.config["models"]["wideanddeep"]["fc_sizes"]
+        self.sparse_feature_number = self.config["models"]["common"]["sparse_feature_number"]
+        self.sparse_feature_dim = self.config["models"]["common"]["sparse_feature_dim"]
+        self.num_field = self.config["models"]["common"]["num_fields"]
+        self.layer_sizes = self.config["models"]["common"]["fc_sizes"]
 
         self.embedding = paddle.nn.Embedding(
             num_embeddings=self.sparse_feature_number,
