@@ -16,8 +16,10 @@ class RecDataset(IterableDataset):
         self.file_list = file_list
         self.max_len = config["runner"]["max_len"]
         self.seed = config["runner"]["seed"]
+        self.is_infer = config["runner"]["is_infer"]
+        self.neg_coef = config["runner"]["neg_coef"]
 
-        _map = {"1": 12/47, "2": 4/9, "3": 1/6}
+        _map = {"1": self.neg_coef * 6/94, "2": self.neg_coef * 1/9, "3": self.neg_coef * 1/24}
         conv_type = config["runner"]["conv_type"]
 
         self.coef = _map[conv_type]
@@ -59,7 +61,7 @@ class RecDataset(IterableDataset):
                         conv = 0
 
                     rand = random.random()
-                    if conv == 0 and rand > self.coef:
+                    if not self.is_infer and conv == 0 and rand > self.coef:
                         continue
 
                     output = [(i, []) for i in self.slots]
