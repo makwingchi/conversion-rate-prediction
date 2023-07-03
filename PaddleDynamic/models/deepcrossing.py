@@ -1,10 +1,14 @@
 import paddle
 import paddle.nn.functional as F
 
+from .activation import Dice
+
 
 class DeepCrossingResidualBlock(paddle.nn.Layer):
-    def __init__(self, input_dim, hidden_dim):
+    def __init__(self, input_dim, hidden_dim, act):
         super().__init__()
+
+        self.act = act
 
         self.linear1 = paddle.nn.Linear(
             in_features=input_dim,
@@ -28,7 +32,14 @@ class DeepCrossingResidualBlock(paddle.nn.Layer):
         )
 
     def forward(self, x):
-        out1 = F.relu(self.linear1(x))
+        out1 = self.linear1(x)
+
+        if self.act.lower() == "relu":
+            out1 = F.relu(out1)
+        elif self.act.lower() == "dice":
+            act = Dice(out1.shape[-1])
+            out1 = act(out1)
+
         out2 = self.linear2(out1) + x
 
         return F.relu(out2)
@@ -43,6 +54,7 @@ class DeepCrossing(paddle.nn.Layer):
         self.sparse_feature_dim = self.config["models"]["common"]["sparse_feature_dim"]
         self.num_field = self.config["models"]["common"]["num_fields"]
         self.layer_sizes = self.config["models"]["common"]["fc_sizes"]
+        self.activation_type = self.config["models"]["common"]["activate"]
 
         self.embedding = paddle.nn.Embedding(
             num_embeddings=self.sparse_feature_number,
@@ -57,7 +69,8 @@ class DeepCrossing(paddle.nn.Layer):
         for i in range(len(self.layer_sizes)):
             residual_block = DeepCrossingResidualBlock(
                 input_dim=self.sparse_feature_dim * self.num_field,
-                hidden_dim=self.layer_sizes[i]
+                hidden_dim=self.layer_sizes[i],
+                act=self.activation_type
             )
 
             self.residual_blocks.append(residual_block)
@@ -72,6 +85,11 @@ class DeepCrossing(paddle.nn.Layer):
                 initializer=paddle.nn.initializer.Constant(value=0.0)
             )
         )
+
+        if self.activation_type.lower() == "relu":
+            self.act = paddle.nn.ReLU()
+        elif self.activation_type.lower() == "dice":
+            self.act = Dice(self.sparse_feature_dim * self.num_field)
 
     def forward(self, features, mask):
         feature_ls = []
