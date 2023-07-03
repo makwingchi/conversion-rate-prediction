@@ -9,6 +9,9 @@ from .pnn import PNN
 from .dlrm import DLRM
 from .mmoe import MMoE
 from .naive_attention import NativeAttention
+from .deepcrossingV2 import DeepCrossingV2
+from .deepfm import DeepFM
+from .nfm import NFM
 
 
 class RecModel:
@@ -26,6 +29,9 @@ class RecModel:
             "fnn": FNN,
             "mmoe": MMoE,
             "dlrm": DLRM,
+            "deepcrossingV2": DeepCrossingV2,
+            "deepfm": DeepFM,
+            "nfm": NFM,
             "naive_attention": NativeAttention
         }
 
