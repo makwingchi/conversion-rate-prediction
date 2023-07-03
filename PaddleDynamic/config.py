@@ -3,28 +3,30 @@ def get_configurations():
         "runner": {
             "seed": 666,
             "device": "gpu",
-            "model_save_path": "./output_t1",
-            "train_data_path": "../work_data/data205411/2023-cvr-contest-data/train_t1",
-            "test_data_path": "../work_data/data204194/test_t1",
+            "model_save_path": "./output_t3",
+            "train_data_path": "../work_data/data205411/2023-cvr-contest-data/train_t3",
+            "test_data_path": "../work_data/data204194/test_t3",
             "batch_size": 512,
             "train_epochs": 1,
             "thread_num": 1,
             "print_interval": 50,
             "max_len": 20,
-            "model_type": "naive_attention",
+            "model_type": "nfm",
             "task_type": "single",
-            "conv_type": "1",
-            "is_infer": False
+            "conv_type": "3",
+            "is_infer": True,
+            "neg_coef": 4
         },
         "optimizer": {
             "learning_rate": 0.001
         },
         "models": {
             "common": {
-                "sparse_feature_dim": 12,
+                "sparse_feature_dim": 11,
                 "sparse_feature_number": 88000000,
                 "num_fields": 26,
-                "fc_sizes": [512, 256, 128, 32]
+                "fc_sizes": [512, 256, 128, 32],
+                "activate": "relu"
             },
             "deepandcross": {
                 "num_crosses": 3
@@ -38,7 +40,13 @@ def get_configurations():
                 "tower_size": 128,
                 "gate_num": 3
             },
-            "native_attention": {
+            "dlrm": {
+                "self_interaction": True
+            },
+            "afm": {
+                "attention_dim": 8
+            },
+            "naive_attention": {
                 "qkv_dim": 9
             }
         }
