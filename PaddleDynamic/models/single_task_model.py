@@ -15,6 +15,8 @@ class DynamicSingleTaskModel(RecModel):
         return label, features, mask
 
     def train_forward(self, model, metric_list, batch_data):
+        model.train()
+
         label, features, mask = self.create_feeds(batch_data)
         pred = model.forward(features, mask)
 
@@ -28,6 +30,8 @@ class DynamicSingleTaskModel(RecModel):
         return loss, metric_list, print_dict
 
     def infer_forward(self, model, metric_list, batch_data):
+        model.eval()
+
         label, features, mask = self.create_feeds(batch_data)
         pred = model.forward(features, mask)
 
