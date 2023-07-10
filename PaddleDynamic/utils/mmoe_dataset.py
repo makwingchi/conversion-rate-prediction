@@ -1,3 +1,4 @@
+import random
 import logging
 
 import numpy as np
@@ -14,6 +15,16 @@ class MMoEDataset(IterableDataset):
         super().__init__()
         self.file_list = file_list
         self.max_len = config["runner"]["max_len"]
+        self.seed = config["runner"]["seed"]
+        self.is_infer = config["runner"]["is_infer"]
+        self.neg_coef = config["runner"]["neg_coef"]
+
+        self._map = {
+            "1": self.neg_coef * 5.928 / (100 - 5.928),
+            "2": self.neg_coef * 10.561 / (100 - 10.561),
+            "3": self.neg_coef * 3.86 / (100 - 3.86)
+        }
+
         self.init()
 
     def init(self):
@@ -46,9 +57,16 @@ class MMoEDataset(IterableDataset):
                 for line in rf:
                     items = line.strip("\n").split("\t")
                     log_key = int(items[0])
-                    conv1 = self.__convert(items[1])
-                    conv2 = self.__convert(items[2])
-                    conv3 = self.__convert(items[3])
+
+                    rand = random.random()
+                    if not self.is_infer and items[1] == "0" and rand > self._map["1"]:
+                        continue
+
+                    if not self.is_infer and items[2] == "0" and rand > self._map["2"]:
+                        continue
+
+                    if not self.is_infer and items[3] == "0" and rand > self._map["3"]:
+                        continue
 
                     output = [(i, []) for i in self.slots]
                     feasigns = items[4].split(" ")
@@ -67,11 +85,29 @@ class MMoEDataset(IterableDataset):
 
                     output[0][1].append(log_key)
                     self.visit['log_key'] = True
-                    output[1][1].append(conv1)
+
+                    if items[1] == "-":
+                        output[1][1].append([1, 0, 0])
+                    elif items[1] == "0":
+                        output[1][1].append([0, 1, 0])
+                    elif items[1] == "1":
+                        output[1][1].append([0, 0, 1])
                     self.visit['t1'] = True
-                    output[2][1].append(conv2)
+
+                    if items[2] == "-":
+                        output[2][1].append([1, 0, 0])
+                    elif items[2] == "0":
+                        output[2][1].append([0, 1, 0])
+                    elif items[2] == "1":
+                        output[2][1].append([0, 0, 1])
                     self.visit['t2'] = True
-                    output[3][1].append(conv3)
+
+                    if items[3] == "-":
+                        output[3][1].append([1, 0, 0])
+                    elif items[3] == "0":
+                        output[3][1].append([0, 1, 0])
+                    elif items[3] == "1":
+                        output[3][1].append([0, 0, 1])
                     self.visit['t3'] = True
 
                     for i in self.visit:
