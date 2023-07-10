@@ -1,6 +1,7 @@
 import os
 import time
 import logging
+import argparse
 
 import pandas as pd
 
@@ -19,8 +20,20 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--conv_type", help="specify conversion type")
+parser.add_argument("--purpose", help="specify purpose")
+parser.add_argument("--model_type", help="specify model type")
+
+
 if __name__ == "__main__":
-    config = get_configurations()
+    args = parser.parse_args()
+
+    conv_type = str(args.conv_type)
+    purpose = str(args.purpose)
+    model_type = str(args.model_type)
+
+    config = get_configurations(conv_type, purpose, model_type)
     print(config)
 
     seed = config["runner"]["seed"]
@@ -41,7 +54,7 @@ if __name__ == "__main__":
 
     model = model_class.create_model()
 
-    test_dataloader = create_data_loader(config, device, task_type, mode="test")
+    test_dataloader = create_data_loader(config, device, task_type, is_shuffle=False, mode="test")
 
     epoch_begin = time.time()
     interval_begin = time.time()

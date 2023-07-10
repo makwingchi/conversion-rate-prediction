@@ -1,5 +1,6 @@
 import time
 import logging
+import argparse
 
 import paddle
 
@@ -17,8 +18,22 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--conv_type", help="specify conversion type")
+parser.add_argument("--purpose", help="specify purpose")
+parser.add_argument("--model_type", help="specify model type")
+parser.add_argument("--is_infer", help="specify mode", default="0")
+
+
 if __name__ == "__main__":
-    config = get_configurations()
+    args = parser.parse_args()
+
+    conv_type = str(args.conv_type)
+    purpose = str(args.purpose)
+    model_type = str(args.model_type)
+    is_infer = bool(int(args.is_infer))
+
+    config = get_configurations(conv_type, purpose, model_type, is_infer)
     print(config)
 
     seed = config["runner"]["seed"]
@@ -27,6 +42,7 @@ if __name__ == "__main__":
     print_interval = config["runner"]["print_interval"]
     model_save_path = config["runner"]["model_save_path"]
     task_type = config["runner"]["task_type"]
+    is_shuffle = config["runner"]["is_shuffle"]
 
     paddle.seed(seed)
 
@@ -38,7 +54,7 @@ if __name__ == "__main__":
     model = model_class.create_model()
     optimizer = model_class.create_optimizer(model)
 
-    train_dataloader = create_data_loader(config, device, task_type)
+    train_dataloader = create_data_loader(config, device, task_type, is_shuffle)
 
     for epoch_id in range(num_epochs):
         model.train()
