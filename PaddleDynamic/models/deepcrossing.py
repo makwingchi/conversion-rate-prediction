@@ -8,6 +8,7 @@ class DeepCrossingResidualBlock(paddle.nn.Layer):
     def __init__(self, input_dim, hidden_dim, act):
         super().__init__()
 
+        assert act.lower() in ["relu", "dice", "sigmoid", "none"], f"{act} currently not supported!"
         self.act = act
 
         self.linear1 = paddle.nn.Linear(
@@ -39,10 +40,20 @@ class DeepCrossingResidualBlock(paddle.nn.Layer):
         elif self.act.lower() == "dice":
             act = Dice(out1.shape[-1])
             out1 = act(out1)
+        elif self.act.lower() == "sigmoid":
+            out1 = F.sigmoid(out1)
 
         out2 = self.linear2(out1) + x
 
-        return F.relu(out2)
+        if self.act.lower() == "relu":
+            return F.relu(out2)
+        elif self.act.lower() == "dice":
+            act = Dice(out2.shape[-1])
+            return act(out2)
+        elif self.act.lower() == "sigmoid":
+            return F.sigmoid(out2)
+
+        return out2
 
 
 class DeepCrossing(paddle.nn.Layer):
@@ -85,11 +96,6 @@ class DeepCrossing(paddle.nn.Layer):
                 initializer=paddle.nn.initializer.Constant(value=0.0)
             )
         )
-
-        if self.activation_type.lower() == "relu":
-            self.act = paddle.nn.ReLU()
-        elif self.activation_type.lower() == "dice":
-            self.act = Dice(self.sparse_feature_dim * self.num_field)
 
     def forward(self, features, mask):
         feature_ls = []
