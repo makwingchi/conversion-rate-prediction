@@ -13,13 +13,17 @@ logger = logging.getLogger(__name__)
 class RecDataset(IterableDataset):
     def __init__(self, file_list, config):
         super().__init__()
-        self.file_list = file_list
+        self.file_list = [_file for _file in file_list if _file.endswith(".txt")]
         self.max_len = config["runner"]["max_len"]
         self.seed = config["runner"]["seed"]
         self.is_infer = config["runner"]["is_infer"]
         self.neg_coef = config["runner"]["neg_coef"]
 
-        _map = {"1": self.neg_coef * 6/94, "2": self.neg_coef * 1/9, "3": self.neg_coef * 1/24}
+        _map = {
+            "1": self.neg_coef * 5.928 / (100 - 5.928),
+            "2": self.neg_coef * 10.561 / (100 - 10.561),
+            "3": self.neg_coef * 3.86 / (100 - 3.86)
+        }
         conv_type = config["runner"]["conv_type"]
 
         self.coef = _map[conv_type]
