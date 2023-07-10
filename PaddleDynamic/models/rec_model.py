@@ -12,6 +12,15 @@ from .naive_attention import NativeAttention
 from .deepcrossingV2 import DeepCrossingV2
 from .deepfm import DeepFM
 from .nfm import NFM
+from .afm import AFM
+from .autoint import AutoInt
+from .deepcrossingattn import DeepCrossingAttn
+from .dcnv3 import DeepAndCrossV3
+from .dcnv5 import DeepAndCrossV5
+from .dcnv8 import DeepAndCrossV8
+from .dcnv9 import DeepAndCrossV9
+from .dcnv14 import DeepAndCrossV14
+from .share_bottom import ShareBottom
 
 
 class RecModel:
@@ -32,7 +41,16 @@ class RecModel:
             "deepcrossingV2": DeepCrossingV2,
             "deepfm": DeepFM,
             "nfm": NFM,
-            "naive_attention": NativeAttention
+            "afm": AFM,
+            "autoint": AutoInt,
+            "naive_attention": NativeAttention,
+            "deepcrossingattn": DeepCrossingAttn,
+            "deepandcrossv3": DeepAndCrossV3,
+            "deepandcrossv5": DeepAndCrossV5,
+            "deepandcrossv8": DeepAndCrossV8,
+            "deepandcrossv9": DeepAndCrossV9,
+            "deepandcrossv14": DeepAndCrossV14,
+            "sharebottom": ShareBottom
         }
 
         return _map[self.model_type]
