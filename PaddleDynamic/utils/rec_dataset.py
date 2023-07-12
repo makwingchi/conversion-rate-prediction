@@ -20,9 +20,9 @@ class RecDataset(IterableDataset):
         self.neg_coef = config["runner"]["neg_coef"]
 
         _map = {
-            "1": self.neg_coef * 5.928 / (100 - 5.928),
-            "2": self.neg_coef * 10.561 / (100 - 10.561),
-            "3": self.neg_coef * 3.86 / (100 - 3.86)
+            "1": self.neg_coef * 5.928289400009392 / (100 - 5.928289400009392),
+            "2": self.neg_coef * 10.56147537441774 / (100 - 10.56147537441774),
+            "3": self.neg_coef * 3.859661757901048 / (100 - 3.859661757901048)
         }
         conv_type = config["runner"]["conv_type"]
 
