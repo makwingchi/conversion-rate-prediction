@@ -3,7 +3,7 @@ def get_configurations(conv_type, purpose, model_type, is_infer):
         "runner": {
             "seed": 666,
             "device": "gpu",
-            "batch_size": 256,
+            "batch_size": 512,
             "train_epochs": 1,
             "thread_num": 1,
             "print_interval": 50,
@@ -20,7 +20,7 @@ def get_configurations(conv_type, purpose, model_type, is_infer):
                 "sparse_feature_dim": 11,
                 "sparse_feature_number": 88000000,
                 "num_fields": 26,
-                "fc_sizes": [512, 256, 128, 32],
+                "fc_sizes": [256, 128, 32],
                 "activate": "relu"
             },
             "deepandcross": {
